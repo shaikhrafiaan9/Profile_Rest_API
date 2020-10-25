@@ -25,7 +25,7 @@ class UserProfileManager(BaseUserManager):
         user.is_superuser = True
         user.is_staff = True
         user.save(using=self._db)
-        
+
         return user
 
 class UserProfile(AbstractBaseUser,PermissionsMixin):
@@ -38,7 +38,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     objects = UserProfileManager()
     #password and email are by default required
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELD = ['name']
+    REQUIRED_FIELDS = ['name']
 
     def get_fulllname(self):
         return self.name
