@@ -12,7 +12,7 @@ class UserProfileManager(BaseUserManager):
             raise ValueError("Users must have an Email id")
 
         email = self.normalize_email(email)
-        user = self.model(email=email,name=name)
+        user = self.model(email=email,name=name,)
 
         user.set_password(password)    #set_password will encrypt the password by default
         user.save(using=self._db)

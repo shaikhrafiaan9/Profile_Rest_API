@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import HelloSerializer
+from .serializers import HelloSerializer , UserProfileSerializer
 from rest_framework import status
 from rest_framework import viewsets
+from .models import UserProfile
+from rest_framework.authentication import TokenAuthentication
+from .permissions import UpdateOwnProfile
 
 # Create your views here.
 #APIView has function that support HTTP method
@@ -89,3 +92,13 @@ class HelloViewSet(viewsets.ViewSet):
 
     def destroy(self,request,pk=None):
         return Response({'http_method':'DELETE'})
+
+
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = UserProfileSerializer
+    queryset =  UserProfile.objects.all()
+    print(queryset)
+    authentication_classes = (TokenAuthentication,)    #how the user will authenticate
+    permission_classes = (UpdateOwnProfile,)           #how the user get permissions
