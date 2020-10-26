@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from .models import UserProfile
 from rest_framework.authentication import TokenAuthentication
 from .permissions import UpdateOwnProfile
+from rest_framework import filters
 
 # Create your views here.
 #APIView has function that support HTTP method
@@ -102,3 +103,5 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     print(queryset)
     authentication_classes = (TokenAuthentication,)    #how the user will authenticate
     permission_classes = (UpdateOwnProfile,)           #how the user get permissions
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name','email',)
